@@ -1,0 +1,36 @@
+#python code for the sql backup and recovery
+
+import os
+
+sql_path = "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin"
+
+user = "root"
+password = "Vinu@8898"
+
+dbms_name = "test"
+table_name = "subtest"
+
+b_path = "C:\\Users\\vinyak\\OneDrive\\Documents\\SEM-VI\\CF"
+file_name = "myBackup"
+
+def backup(user,password,dbms,table,path,file_name):
+    command = f"mysqldump -u{user} -p{password} {dbms} {table} > {path}/{file_name}"
+    os.chdir(sql_path)
+    os.system(command)
+    print("backup created done")
+def recovery(user, password, dbms, b_path, b_file_name):
+    command = f"mysql -u{user} -p{password} {dbms} < {b_path}/{b_file_name}"
+    os.chdir(sql_path)
+    os.system(command)
+    print("Recovery done")
+
+choice = int(input("Choose the option...\n\t1. Backup\n\t2. Recovery\n==>"))
+
+if (choice==1):
+    backup(user,password,dbms_name,table_name,b_path,file_name)
+elif (choice==2):
+    recovery(user,password,dbms_name,b_path,file_name)
+else:
+    print("choose a correct option...")
+
+
